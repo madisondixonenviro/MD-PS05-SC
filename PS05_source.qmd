@@ -1,6 +1,6 @@
 ---
 title: "Problem Set 05: Regression with One Categorical Variable"
-author: "Your Name"
+author: "Madison Dixon"
 date: last-modified
 date-format: "[Last modified on] MMMM DD, YYYY HH:mm:ss zzz"
 format: 
@@ -80,7 +80,9 @@ Create a visual model of these data (a graph) that will allow you to conduct an 
 ```{r}
 # Type your code and comments inside the code chunk
 
-
+ggplot(hate_crimes, aes(x = trump_support, y=hate_crimes)) +
+  geom_boxplot()+
+  labs(x = "Voter Support for Trump", y= "Number of Hate Crimes (per 100k people)", title = "Problem 1")
 ```
 :::
 
@@ -89,7 +91,7 @@ Create a visual model of these data (a graph) that will allow you to conduct an 
 :::
 
 ::: {.callout-important icon="false" collapse="false" title="Problem 2 Answers"}
--   Delete this and put your text answer here.
+-   It's not surprising, cities tend to be areas of low Trump support and have higher populations which would mean more chances for a hate crime to occur.
 :::
 
 ::: {.callout-note icon="false" title="Problem 3"}
@@ -99,7 +101,8 @@ Create a model that examines the relationship between hate crime rates and the l
 ::: {.callout-important icon="false" collapse="false" title="Problem 3 Answers"}
 ```{r}
 # Type your code and comments inside the code chunk
-
+hate_mod <- lm(hate_crimes ~ trump_support, data = hate_crimes)
+get_regression_table(hate_mod)
 ```
 :::
 
@@ -108,7 +111,7 @@ What does the intercept mean in this regression table?
 :::
 
 ::: {.callout-important icon="false" collapse="false" title="Problem 4 Answers"}
--   Delete this and put your text answer here.
+-   The number of hate crimes per 100k people in areas of high trump support.
 :::
 
 ::: {.callout-note icon="false" title="Problem 5"}
@@ -116,11 +119,13 @@ What does the model estimate as the number of hate crimes per 100,000 people in 
 :::
 
 ::: {.callout-important icon="false" collapse="false" title="Problem 5 Answers"}
--   Delete this and put your text answer here.
+-   The model estimates 0.46 hate crimes per 100k people in areas of low Trump support.
 
 ```{r}
 # Type your code and comments inside the code chunk
-
+hate_mod_tab <- get_regression_table(hate_mod)
+hate_mod_tab
+low <- hate_mod_tab[1,2] + hate_mod_tab[2,2]
 ```
 :::
 
@@ -134,7 +139,7 @@ Does the model estimate that hate crimes are more frequent in states that show "
 
 ```
 
--   Delete this and put your text answer here.
+-   The intercept is the predicted number of hate crimes per 100k (at 0.191) in areas of high Trump support, the model estimates that areas of low Trump support have higher hate crime rates at 0.46 hate crimes per 100k.
 :::
 
 ::: {.callout-note icon="false" title="Problem 7"}
@@ -144,10 +149,11 @@ How much greater were hate crimes in "medium" Trump-support states compared to "
 ::: {.callout-important icon="false" collapse="false" title="Problem 7 Answers"}
 ```{r, label = "delta"}
 # Type your code and comments inside the code chunk
-
+medium <- hate_mod_tab[1,2]+hate_mod_tab[3,2]
+high <- hate_mod_tab[1,2]
 ```
 
--   Delete this and put your text answer here.
+-   Hate crimes were 0.031 higher per 100k people in areas of medium Trump support.
 :::
 
 ::: {.callout-note icon="false" title="Problem 8"}
@@ -157,14 +163,14 @@ What are the three possible fitted values $\hat{y}$ for this model? Hint: use th
 ::: {.callout-important icon="false" collapse="false" title="Problem 8 Answers"}
 ```{r}
 # Type your code and comments inside the code chunk
-
+get_regression_points(hate_mod)
 ```
 
--   Delete this and put your text answer here.
+-   For areas of low Trump support: 0.460.
 
--   Delete this and put your text answer here.
+-   For areas of medium Trump support: 0.222.
 
--   Delete this and put your text answer here.
+-   For areas of high Trump support: 0.191.
 :::
 
 ::: {.callout-note icon="false" title="Problem 9"}
@@ -178,7 +184,7 @@ group_by(trump_support) |>
 :::
 
 ::: {.callout-important icon="false" collapse="false" title="Problem 9 Answers"}
--   Delete this and put your text answer here.
+-   The values are very similar, calculating by group means just results in a higher number of decimal places/more sig figs.
 :::
 
 ## The Regression Equation
