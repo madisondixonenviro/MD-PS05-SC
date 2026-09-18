@@ -363,7 +363,8 @@ Create a model that examines the relationship between `hate_crimes` and median h
 ::: {.callout-important icon="false" collapse="false" title="Problem 19 Answers"}
 ```{r}
 # Type your code and comments inside the code chunk
-
+job_med_mod <- lm(hate_crimes ~ median_house_inc, data=hate_crimes)
+summary(job_med_mod)
 ```
 :::
 
@@ -372,7 +373,7 @@ Were there more hate crimes in areas with high or low median household incomes? 
 :::
 
 ::: {.callout-important icon="false" collapse="false" title="Problem 20 Answers"}
--   Delete this and put your text answer here.
+-   In areas of high median household income there was a 0.16041 higher amount of hate crimes per 100k people.
 :::
 
 ::: {.callout-note icon="false" title="Problem 21"}
@@ -382,7 +383,8 @@ Show the first six rows of the output created from running the `get_regression_p
 ::: {.callout-important icon="false" collapse="false" title="Problem 21 Answers"}
 ```{r}
 # Type your code and comments inside the code chunk
-
+get_regression_points(job_med_mod)
+head(job_med_mod)
 ```
 :::
 
@@ -393,10 +395,10 @@ Take a look at data for Maine (row 2 of `hate_crimes`). Did the model (`job_med_
 ::: {.callout-important icon="false" collapse="false" title="Problem 22 Answers"}
 ```{r}
 # Type your code and comments inside the code chunk
-
+hate_crimes
 ```
 
--   Delete this and put your text answer here.
+-   The model underpredicted, the actual number of hate crimes per 100k in Maine is 0.616, the model predicted it at 0.229.
 :::
 
 # **EXTRA**
