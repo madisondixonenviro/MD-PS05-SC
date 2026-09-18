@@ -238,14 +238,18 @@ Solve the regression equation for a state in which `trump_support` is "high".
 :::
 
 ::: {.callout-important icon="false" collapse="false" title="Problem 10 Answers"}
-Your $LaTeX$ here
+$$
+\widehat{y} = `r coef(hate_mod)[1]` + `r coef(hate_mod)[2]` \times D_1 + `r coef(hate_mod)[3]` \times D_2 \\
+\widehat{y} = `r coef(hate_mod)[1]` + `r coef(hate_mod)[2]` \times 0 + `r coef(hate_mod)[3]` \times 0 \\
+\widehat{y} = `r coef(hate_mod)[1]`
+$$
 
 ```{r}
 # Type your code and comments inside the code chunk
 
 ```
 
--   Delete this and put your text answer here.
+-   When Trump support is high, the rate of hate crimes is 0.191 per 100k people.
 :::
 
 ::: {.callout-note icon="false" title="Problem 11"}
@@ -257,10 +261,11 @@ Do these results surprise you? (There is no right answer to this question.)
 ::: {.callout-important icon="false" collapse="false" title="Problem 11 Answers"}
 ```{r}
 # Type your code and comments inside the code chunk
-
+p11 <- arrange(hate_crimes, desc(hate_crimes))
+p11
 ```
 
--   Delete this and put your text answer here.
+-   Oregon, Washington, Massachusetts, Minnesota, and Maine had the highest rate of hate crimes per 100k people, these results are a little surprising but they make sense in context with other assumptions that have been drawn.
 :::
 
 # Hate Crimes and Unemployment
@@ -277,7 +282,8 @@ Create a visual model of this data (a graph) that will allow you to conduct an "
 ::: {.callout-important icon="false" collapse="false" title="Problem 12 Answers"}
 ```{r}
 # Type your code and comments inside the code chunk
-
+ggplot(hate_crimes, aes(x=unemployment, y=hate_crimes))+
+  geom_boxplot()
 ```
 :::
 
@@ -288,7 +294,8 @@ Create a model that examines the relationship between hate crime rates and the u
 ::: {.callout-important icon="false" collapse="false" title="Problem 13 Answers"}
 ```{r}
 # Type your code and comments inside the code chunk
-
+job_mod <- lm(hate_crimes ~ unemployment, data=hate_crimes)
+get_regression_table(job_mod)
 ```
 :::
 
@@ -297,7 +304,7 @@ Write out the regression equation for `job_mod`.
 :::
 
 ::: {.callout-important icon="false" collapse="false" title="Problem 14 Answers"}
-Write your equation with $LaTeX$ here.
+$$\widehat{y} = `r coef(job_mod)[1]` + `r coef(job_mod)[2]` \times D_1 $$
 :::
 
 ::: {.callout-note icon="false" title="Problem 15"}
@@ -305,7 +312,7 @@ Interpret the estimate of the intercept from the table below.
 :::
 
 ::: {.callout-important icon="false" collapse="false" title="Problem 15 Answers"}
--   Delete this and put your text answer here.
+-   The intercept is the rate of hate crimes per 100k people in areas of high unemployment.
 :::
 
 ::: {.callout-note icon="false" title="Problem 16"}
@@ -315,10 +322,10 @@ What does the model estimate the number of hate crimes per 100,000 people to be 
 ::: {.callout-important icon="false" collapse="false" title="Problem 16 Answers"}
 ```{r}
 # Type your code and comments inside the code chunk
-
+lowu <- 0.289 + 0.031
 ```
 
--   Delete this and put your text answer here.
+-   The estimate for the number of hate crimes per 100k people in an area of low unemployment is 0.32.
 :::
 
 ::: {.callout-note icon="false" title="Problem 17"}
@@ -328,10 +335,10 @@ What are the two possible fitted values $\widehat{y}$ for this model? Why are th
 ::: {.callout-important icon="false" collapse="false" title="Problem 17 Answers"}
 ```{r}
 # Type your code and comments inside the code chunk
-
+get_regression_points(job_mod)
 ```
 
--   Delete this and put your text answer here.
+-   The two possible values are 0.320 and 0.289, there are only two values because there are only two options for the categorical variable unemployment to be (high and low).
 :::
 
 ::: {.callout-note icon="false" title="Problem 18"}
@@ -341,10 +348,10 @@ Use the `get_regression_points()` function to generate a table showing the fitte
 ::: {.callout-important icon="false" collapse="false" title="Problem 18 Answers"}
 ```{r}
 # Type your code and comments inside the code chunk
-
+get_regression_points(job_mod)
 ```
 
--   Delete this and put your text answer here.
+-   The residual is found by subtracting the estimated hate crime value from the actual hate crime data value.
 :::
 
 # Hate Crimes and Household Income
